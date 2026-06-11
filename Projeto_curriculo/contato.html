@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Feedback</title>
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+
+</head>
+
+<body class="bg-light">
+
+    
+    <div class="container py-5">
+        <div class="card mx-auto" style="max-width: 700px;">
+            <div class="card-body">
+
+                <h3 class="card-title mb-4 text-center">
+                    Formulário de Feedback
+                </h3>
+
+                <a href="index.html" class="btn btn-outline-primary mb-3">
+                    Voltar
+                </a>
+
+                <form id="feedbackForm">
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="primeiroNome" class="form-label">
+                                Primeiro Nome:
+                            </label>
+                            <input type="text" class="form-control" id="primeiroNome" required>
+                        </div>
+
+                        <div class="col">
+                            <label for="ultimoNome" class="form-label">
+                                Último Nome:
+                            </label>
+                            <input type="text" class="form-control" id="ultimoNome" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">
+                            Email:
+                        </label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="pontos" class="form-label">
+                            Quais qualidades pessoais de Ryan mais se destacam para você?
+                        </label>
+                        <textarea class="form-control" id="pontos" rows="3" placeholder="Digite sua opinião"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="sugestoes" class="form-label">
+                            Que sugestões você daria para o desenvolvimento profissional de Ryan?
+                        </label>
+                        <textarea class="form-control" id="sugestoes" rows="4"
+                            placeholder="Digite suas sugestões aqui..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Como você avalia o conhecimento técnico de Ryan na área de TI?
+                        </label>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="conhecimento_ti" id="excelente"
+                                value="Excelente" required>
+                            <label class="form-check-label" for="excelente">
+                                Excelente
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="conhecimento_ti" id="bom" value="Bom">
+                            <label class="form-check-label" for="bom">
+                                Bom
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="conhecimento_ti" id="regular"
+                                value="Regular">
+                            <label class="form-check-label" for="regular">
+                                Regular
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="conhecimento_ti" id="precisa_melhorar"
+                                value="Precisa melhorar">
+                            <label class="form-check-label" for="precisa_melhorar">
+                                Precisa melhorar
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nota" class="form-label">
+                            Qual nota daria para este perfil? (1 a 10)
+                        </label>
+                        <input type="number" class="form-control" id="nota" min="1" max="10" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="comentario" class="form-label">
+                            Adicione um comentário:
+                        </label>
+                        <textarea class="form-control" id="comentario" rows="3"></textarea>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">
+                            Enviar
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalFeedback" tabindex="-1" aria-labelledby="modalFeedbackLabel" aria-hidden="true">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalFeedbackLabel">
+                        Informações do Formulário
+                    </h5>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+
+                <div class="modal-body">
+                    <ul id="modalContent" class="list-group"></ul>
+                </div>
+
+                <div class="modal-footer">
+
+                    <a href="mailto:moraesryan38@gmail.com?subject=Feedback%20sobre%20Ryan" class="btn btn-primary">
+                        Enviar por E-mail
+                    </a>
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Fechar
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const form = document.getElementById('feedbackForm');
+        const modal = new bootstrap.Modal(document.getElementById('modalFeedback'));
+        const modalContent = document.getElementById('modalContent');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const conhecimentoTI = document.querySelector(
+                'input[name="conhecimento_ti"]:checked'
+            );
+
+            const dados = {
+                "Primeiro Nome": document.getElementById('primeiroNome').value,
+                "Último Nome": document.getElementById('ultimoNome').value,
+                "Email": document.getElementById('email').value,
+                "Pontos Interessantes": document.getElementById('pontos').value,
+                "Sugestões Profissionais": document.getElementById('sugestoes').value,
+                "Conhecimento Técnico": conhecimentoTI ? conhecimentoTI.value : "Não selecionado",
+                "Nota": document.getElementById('nota').value,
+                "Comentário": document.getElementById('comentario').value
+            };
+
+            modalContent.innerHTML = '';
+
+            for (const [chave, valor] of Object.entries(dados)) {
+                const li = document.createElement('li');
+                li.classList.add('list-group-item');
+                li.innerHTML = `<strong>${chave}:</strong> ${valor || '-'}`;
+                modalContent.appendChild(li);
+            }
+
+            modal.show();
+        });
+    </script>
+    ```
+
+</body>
+
+</html>
